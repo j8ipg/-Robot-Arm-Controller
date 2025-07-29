@@ -3,6 +3,8 @@
 A simple web-based interface to control a robotic arm using sliders and save poses using PHP and JSON.  
 Runs locally using XAMPP (Apache + PHP).
 
+![اللوكال هوست](https://github.com/user-attachments/assets/f7e38ed0-d1e7-4adc-ba34-3fc4c029b25d)
+
 ## 🔧 Requirements
 - XAMPP (with Apache and PHP)
 - VS Code or any code editor

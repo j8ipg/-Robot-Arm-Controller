@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Robot Arm Control Panel</title>
+  <style>
+    .motor-control { margin-bottom: 10px; }
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Robot Arm Control Panel</h2>
+  <form id="poseForm">
+    <!-- sliders -->
+    <div class="motor-control">Motor 1: <input type="range" name="motor1" min="0" max="180" value="90"></div>
+    <div class="motor-control">Motor 2: <input type="range" name="motor2" min="0" max="180" value="90"></div>
+    <div class="motor-control">Motor 3: <input type="range" name="motor3" min="0" max="180" value="90"></div>
+    <div class="motor-control">Motor 4: <input type="range" name="motor4" min="0" max="180" value="90"></div>
+    <div class="motor-control">Motor 5: <input type="range" name="motor5" min="0" max="180" value="90"></div>
+    <div class="motor-control">Motor 6: <input type="range" name="motor6" min="0" max="180" value="90"></div>
+
+    <button type="button" onclick="savePose()">Save Pose</button>
+    <button type="button" onclick="resetStatus()">Reset Status</button>
+  </form>
+
+  <h3>Saved Poses</h3>
+  <div id="poseTable"></div>
+
+  <script>
+    function savePose() {
+      const formData = new FormData(document.getElementById("poseForm"));
+      fetch('save_pose.php', { method: 'POST', body: formData })
+        .then(() => location.reload());
+    }
+
+    function runPose(id) {
+      fetch('get_run_pose.php?id=' + id)
+        .then(res => res.json())
+        .then(data => alert("Running Pose: " + JSON.stringify(data)));
+    }
+
+    function resetStatus() {
+      fetch('update_status.php');
+    }
+
+    // Load poses
+    
+    fetch('get_poses.php').then(res => res.text()).then(data => {
+      document.getElementById("poseTable").innerHTML = data;
+    });
+  </script>
+</body>
+</html>
